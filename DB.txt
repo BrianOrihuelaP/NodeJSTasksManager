@@ -1,0 +1,22 @@
+create database crudnode;
+
+use crudnode;
+
+create table tasks (
+ id int primary key auto_increment,
+ title varchar(59),
+ description varchar(250),
+ idUsers int,
+ FOREIGN KEY (idUsers) 
+ REFERENCES users(idUsers)
+ ON DELETE CASCADE ON UPDATE CASCADE
+) default charset utf8 comment '';
+
+create table users (
+    idUsers int primary key auto_increment,
+    name varchar(50),
+    lastName varchar(50),
+    age int,
+    username varchar(60),
+    password varchar(100)
+) default charset utf8 comment '';

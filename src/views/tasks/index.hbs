@@ -1,0 +1,37 @@
+<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg mt-12">
+
+        <table class="table-fixed w-full">
+            <thead>
+                <tr class="bg-green-500 text-white">
+                    <th class="w-20 py-4 ...">ID</th>
+                    <th class="w-1/4 py-4 ...">Title</th>
+                    <th class="w-1/2 py-4 ...">Description</th>
+                    <th class="w-28 py-4 ...">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {{!-- mandamos a llamar la funcion que nos muestra las tareas con sintaxis andlebars --}}
+                {{#each tasks}}
+                <tr>
+                    <td class="py-3 px-6">{{id}}</td>
+                    <td class="p-3">{{title}}</td>
+                    <td class="p-3 text-center">{{description}}</td>
+                    <td class="p-3 flex">
+
+                        <form action="/tasks/delete" method="POST" class="mx-2">
+                        {{!-- en esta seccion mandamos el id del registro para posteriormente ser eliminado --}}
+                            <input type="hidden" value="{{id}}" name="id"> 
+                            <button class="bg-red-500 text-white px-3 py-1 rounded-sm" type="submit">
+                                <i class="fas fa-trash"></i></button>
+                        </form>
+                        <a href="/tasks/update/{{id}}" class="ml-4 mt-1">
+                            <i class="fas fa-pen"></i></a>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
