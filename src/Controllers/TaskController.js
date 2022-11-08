@@ -36,7 +36,7 @@ function store(req, res) {
     const data = req.body;
     const idUsuario = idUser;
     req.getConnection((err, conn) => {
-        conn.query('INSERT INTO tasks (title, description,idUsers) VALUES (?,?,?)', [data.title,data.description,idUsuario], (err, rows) => {
+        conn.query('INSERT INTO tasks (title, description,progress,idUsers) VALUES (?,?,?,?)', [data.title,data.description,data.progress,idUsuario], (err, rows) => {
             //una vez que se hayan metidos los datos al maria, redireccioname a la lista
             console.log("Insertando con idUser: " + idUser);
             res.redirect('/tasks');
