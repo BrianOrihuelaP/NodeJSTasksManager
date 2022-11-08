@@ -10,9 +10,16 @@
     <textarea class="border border-gray-200 rounded-md bg-gray-200 w-full text-lg placeholder-gray-500 
       p-2 my-2 focus:bg-white h-40" placeholder="Task description" name="description"></textarea>
 
+    <input type="radio" id="todo" name="progress" value="TO DO">
+    <label for="todo">TO DO</label><br>
+    <input type="radio" id="pending" name="progress" value="PENDING TASK">
+    <label for="peding">PENDING TASK</label><br>
+    <input type="radio" id="finished" name="progress" value="FINISHED">
+    <label for="finished">FINISHED</label><br>
+
     <button type="submit" class="rounded-md bg-green-500 w-full text-lg text-white font-semibold p-2 my-3
       hover:bg-green-600 focus:bg-green-700">Send</button>
-      {{!-- aqui con handlebars pasaremos los resultados del procesamiento del backend --}}
+    {{!-- aqui con handlebars pasaremos los resultados del procesamiento del backend --}}
   </form>
 
 </div>

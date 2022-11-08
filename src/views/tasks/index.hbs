@@ -1,12 +1,13 @@
 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
     <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg mt-12">
 
-        <table class="table-fixed w-full">
+        <table class="table-fixed w-full" id="example">
             <thead>
                 <tr class="bg-green-500 text-white">
                     <th class="w-20 py-4 ...">ID</th>
                     <th class="w-1/4 py-4 ...">Title</th>
                     <th class="w-1/2 py-4 ...">Description</th>
+                    <th class="w-1/4 py-4 ...">Progress</th>
                     <th class="w-28 py-4 ...">Actions</th>
                 </tr>
             </thead>
@@ -18,11 +19,12 @@
                     <td class="py-3 px-6">{{id}}</td>
                     <td class="p-3">{{title}}</td>
                     <td class="p-3 text-center">{{description}}</td>
+                    <td class="p-3 text-center">{{progress}}</td>
                     <td class="p-3 flex">
 
                         <form action="/tasks/delete" method="POST" class="mx-2">
-                        {{!-- en esta seccion mandamos el id del registro para posteriormente ser eliminado --}}
-                            <input type="hidden" value="{{id}}" name="id"> 
+                            {{!-- en esta seccion mandamos el id del registro para posteriormente ser eliminado --}}
+                            <input type="hidden" value="{{id}}" name="id">
                             <button class="bg-red-500 text-white px-3 py-1 rounded-sm" type="submit">
                                 <i class="fas fa-trash"></i></button>
                         </form>
@@ -31,6 +33,40 @@
                     </td>
                 </tr>
                 {{/each}}
+                <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+                <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+                <script src="https://cdn.datatables.net/fixedheader/3.1.6/js/dataTables.fixedHeader.min.js"></script>
+                <script>
+                    let temp = $("#btn1").clone();
+                    $("#btn1").click(function () {
+                        $("#btn1").after(temp);
+                    });
+
+                    $(document).ready(function () {
+                        var table = $('#example').DataTable({
+                            orderCellsTop: true,
+                            fixedHeader: true
+                        });
+
+                        //Creamos una fila en el head de la tabla y lo clonamos para cada columna
+                        $('#example thead tr').clone(true).appendTo('#example thead');
+
+                        $('#example thead tr:eq(1) th').each(
+                            function (i) {
+                                var title = $(this).text(); //es el nombre de la columna
+                                $(this).html('<input type="text" placeholder="Search ' + title + '"  class="w-1/4"  style="width: 6vw; border-radius: 10px; color:black; border: 2px dashed green" />');
+
+                                $('input', this).on('keyup change', function () {
+                                    if (table.column(i).search() !== this.value) {
+                                        table
+                                            .column(i)
+                                            .search(this.value)
+                                            .draw();
+                                    }
+                                });
+                            });
+                    });
+                </script>
             </tbody>
         </table>
     </div>
